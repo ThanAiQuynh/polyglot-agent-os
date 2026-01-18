@@ -63,6 +63,17 @@ AI agents in this project MUST use Beads for task tracking to maintain context a
 
 ---
 
+## 💡 Best Practices: When to create a task?
+
+To maintain a healthy project "memory", tasks SHOULD be created in the following scenarios:
+
+1. **New User Objectives**: When you receive a new, complex request from the user. Create an "Epic" (P0) to track the overall goal.
+2. **Task Decomposition**: When a task feels too large. Break it down into sub-tasks (P1/P2) linked to the parent.
+3. **Discovery of Technical Debt**: If you find code that needs refactoring or bugs that aren't critical for the current task, file an issue to be addressed later.
+4. **Session End (Handoff)**: If you are finishing your turn and there is work left to do, file specific P1/P2 issues for the next agent to pick up.
+
+---
+
 ## 🔗 Hierarchy Example
 
 - `polyglot-agent-os-a3f8` (Epic)

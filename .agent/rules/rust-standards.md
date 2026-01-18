@@ -5,3 +5,4 @@
 - **Error Handling**: Use `Result`/`Option`. No `.unwrap()` or `.expect()` in production.
 - **Async**: Use `tonic` for gRPC.
 - **Concurrency**: `DashMap` or `tokio::sync::RwLock` for state.
+- **Dependencies**: Mandatory update of `Cargo.toml` for any new crate.

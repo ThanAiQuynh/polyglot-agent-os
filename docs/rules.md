@@ -44,6 +44,13 @@
 * **Versioning**: Version MUST be encoded in the package name, not the filename (e.g. `package core_linguistic.learning.v1;`).
 * **No Language Mixing**: All identifiers MUST be English-only.
 
+## Dependency Management
+
+* **Mandatory Sync**: Whenever an agent installs or adds a new library/dependency, it MUST update the corresponding dependency manifest in the same change set.
+  - **Rust**: Update `Cargo.toml`.
+  - **Python**: Update `requirements.txt` or `pyproject.toml`.
+* **Rationale**: Prevent "works on my machine" issues and ensure reproducible builds for all contributors and agents.
+
 ---
 
 ## Documentation Integrity Rules (Project Map)

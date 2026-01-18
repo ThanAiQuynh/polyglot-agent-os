@@ -28,6 +28,11 @@ You MUST use the **Beads (bd)** library for task tracking in this repository. Be
 - **NEVER** use `bd edit`. Always use `.\scripts\beads_0.47.1_windows_amd64\bd.exe update` with flags like `--title`, `--description`, `--status`, etc.
 - Dependencies are your friend. Use `.\scripts\beads_0.47.1_windows_amd64\bd.exe dep add <child> <parent>` to ensure tasks are done in order.
 - Keep the `bd ready` list clean by closing tasks promptly.
+- **When to Create?**: 
+    - New high-level goals from the USER (Create as P0 Epic).
+    - Complex implementations (Break down into P1/P2 sub-tasks).
+    - Identified technical debt or future refactors.
+    - Remaining work at the end of a session (Essential for handoff).
 
 ## Landing the Plane (Session Completion)
 

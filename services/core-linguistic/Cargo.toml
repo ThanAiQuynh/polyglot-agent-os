@@ -1,0 +1,17 @@
+[package]
+name = "core-linguistic"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tonic = "0.10"
+prost = "0.12"
+tokio = { version = "1.0", features = ["full"] }
+tokio-stream = "0.1"
+async-trait = "0.1"
+dashmap = "5.5"
+chrono = "0.4"
+prost-types = "0.12"
+
+[build-dependencies]
+tonic-build = "0.10"

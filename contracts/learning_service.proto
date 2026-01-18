@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package core_linguistic.learning.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// Service xử lý ngôn ngữ học (Kernel)
+service LinguisticService {
+  // Tách từ và phân tích ngữ pháp
+  rpc Tokenize(TokenizeRequest) returns (TokenizeResponse);
+  
+  // Tra cứu âm Hán-Việt (hỗ trợ cả từ đơn và từ ghép)
+  rpc GetHanViet(GetHanVietRequest) returns (GetHanVietResponse);
+}
+
+// Service quản lý thuật toán ghi nhớ (Learning OS Kernel)
+service MemoryService {
+  // Cập nhật trạng thái ghi nhớ sau khi người dùng ôn tập
+  rpc UpdateMemoryState(UpdateMemoryStateRequest) returns (MemoryObject);
+  
+  // Lấy danh sách các từ vựng đến hạn ôn tập (Due items)
+  rpc GetDueItems(GetDueItemsRequest) returns (GetDueItemsResponse);
+}
+
+// Định nghĩa các giác quan học tập
+enum Modality {
+  MODALITY_UNSPECIFIED = 0;
+  MODALITY_READ = 1;
+  MODALITY_LISTEN = 2;
+  MODALITY_WRITE = 3;
+  MODALITY_SPEAK = 4;
+}
+
+message MemoryObject {
+  string id = 1;
+  string user_id = 2;
+  string linguistic_unit = 3;
+  string han_viet = 4;
+  double stability = 5;      // S: Độ bền trí nhớ
+  double difficulty = 6;     // D: Độ khó của từ
+  Modality last_modality = 7;
+  google.protobuf.Timestamp last_review = 8;
+}
+
+message TokenizeRequest {
+  string text = 1;
+  string language_code = 2; // "jp", "en", "zh"
+}
+
+message Token {
+  string text = 1;
+  string part_of_speech = 2;
+  string lemma = 3;         // Từ gốc (ví dụ: 食べ -> 食べる)
+}
+
+message TokenizeResponse {
+  repeated Token tokens = 1;
+}
+
+message GetHanVietRequest {
+  string text = 1;          // Hỗ trợ cả câu hoặc từ đơn
+}
+
+message GetHanVietResponse {
+  string phonetic = 1;      // Ví dụ: "Kinh tế học"
+}
+
+message UpdateMemoryStateRequest {
+  string object_id = 1;
+  int32 recall_quality = 2; // Đánh giá từ 0-5
+  Modality modality = 3;    // Ôn tập qua kỹ năng nào?
+}
+
+message GetDueItemsRequest {
+  string user_id = 1;
+  int32 limit = 2;
+}
+
+message GetDueItemsResponse {
+  repeated MemoryObject items = 1;
+}

@@ -1,0 +1,57 @@
+services:
+  # 1. Database: PostgreSQL với pgvector cho RAG
+  db:
+    image: ankane/pgvector:latest
+    container_name: polyglot-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: polyglot_os
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+
+  # 2. Cache & Session: Redis
+  redis:
+    image: redis:7-alpine
+    container_name: polyglot-redis
+    ports:
+      - "6379:6379"
+
+  # 3. Message Broker: Redpanda (Tương thích Kafka, cực nhẹ)
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:latest
+    container_name: polyglot-redpanda
+    command:
+      - redpanda start
+      - --smp 1
+      - --memory 1G
+      - --overprovisioned
+      - --node-id 0
+      - --check=false
+      - --reserve-memory 0M
+      - --kafka-addr plaintext://0.0.0.0:9092
+      - --advertise-kafka-addr plaintext://localhost:9092
+    ports:
+      - "9092:9092"
+      - "9644:9644"
+
+  # 4. Object Storage: MinIO (Lưu trữ Audio/PDF)
+  minio:
+    image: minio/minio
+    container_name: polyglot-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+volumes:
+  postgres_data:
+  minio_data:

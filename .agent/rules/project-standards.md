@@ -1,6 +1,7 @@
 # Global Project Standards (Dispatcher)
 @.agent/rules/architecture.md
 @.agent/rules/documentation-standards.md
+@.agent/rules/skill-standards.md
 
 ## Contextual Rules
 - For Rust work: Refer to @.agent/rules/rust-standards.md

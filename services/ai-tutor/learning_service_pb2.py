@@ -25,35 +25,47 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16learning_service.proto\x12\x1b\x63ore_linguistic.learning.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xec\x01\n\x0cMemoryObject\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\x17\n\x0flinguistic_unit\x18\x03 \x01(\t\x12\x10\n\x08han_viet\x18\x04 \x01(\t\x12\x11\n\tstability\x18\x05 \x01(\x01\x12\x12\n\ndifficulty\x18\x06 \x01(\x01\x12<\n\rlast_modality\x18\x07 \x01(\x0e\x32%.core_linguistic.learning.v1.Modality\x12/\n\x0blast_review\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"6\n\x0fTokenizeRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x15\n\rlanguage_code\x18\x02 \x01(\t\"<\n\x05Token\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x16\n\x0epart_of_speech\x18\x02 \x01(\t\x12\r\n\x05lemma\x18\x03 \x01(\t\"F\n\x10TokenizeResponse\x12\x32\n\x06tokens\x18\x01 \x03(\x0b\x32\".core_linguistic.learning.v1.Token\"!\n\x11GetHanVietRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"&\n\x12GetHanVietResponse\x12\x10\n\x08phonetic\x18\x01 \x01(\t\"~\n\x18UpdateMemoryStateRequest\x12\x11\n\tobject_id\x18\x01 \x01(\t\x12\x16\n\x0erecall_quality\x18\x02 \x01(\x05\x12\x37\n\x08modality\x18\x03 \x01(\x0e\x32%.core_linguistic.learning.v1.Modality\"4\n\x12GetDueItemsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\"O\n\x13GetDueItemsResponse\x12\x38\n\x05items\x18\x01 \x03(\x0b\x32).core_linguistic.learning.v1.MemoryObject*t\n\x08Modality\x12\x18\n\x14MODALITY_UNSPECIFIED\x10\x00\x12\x11\n\rMODALITY_READ\x10\x01\x12\x13\n\x0fMODALITY_LISTEN\x10\x02\x12\x12\n\x0eMODALITY_WRITE\x10\x03\x12\x12\n\x0eMODALITY_SPEAK\x10\x04\x32\xeb\x01\n\x11LinguisticService\x12g\n\x08Tokenize\x12,.core_linguistic.learning.v1.TokenizeRequest\x1a-.core_linguistic.learning.v1.TokenizeResponse\x12m\n\nGetHanViet\x12..core_linguistic.learning.v1.GetHanVietRequest\x1a/.core_linguistic.learning.v1.GetHanVietResponse2\xf8\x01\n\rMemoryService\x12u\n\x11UpdateMemoryState\x12\x35.core_linguistic.learning.v1.UpdateMemoryStateRequest\x1a).core_linguistic.learning.v1.MemoryObject\x12p\n\x0bGetDueItems\x12/.core_linguistic.learning.v1.GetDueItemsRequest\x1a\x30.core_linguistic.learning.v1.GetDueItemsResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x16learning_service.proto\x12\x1b\x63ore_linguistic.learning.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9a\x03\n\x0cMemoryObject\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\x17\n\x0flinguistic_unit\x18\x03 \x01(\t\x12\x17\n\x0fsino_vietnamese\x18\x04 \x01(\t\x12\x11\n\tstability\x18\x05 \x01(\x01\x12\x12\n\ndifficulty\x18\x06 \x01(\x01\x12\x13\n\x0b\x64\x65\x63\x61y_curve\x18\x07 \x01(\x01\x12X\n\x10modality_weights\x18\x08 \x03(\x0b\x32>.core_linguistic.learning.v1.MemoryObject.ModalityWeightsEntry\x12<\n\rlast_modality\x18\t \x01(\x0e\x32%.core_linguistic.learning.v1.Modality\x12/\n\x0blast_review\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x1a\x36\n\x14ModalityWeightsEntry\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\x01:\x02\x38\x01\"k\n\x14IngestContentRequest\x12\x13\n\x0braw_content\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\x17\n\x0ftarget_language\x18\x03 \x01(\t\x12\x14\n\x0c\x63ontext_hint\x18\x04 \x01(\t\"q\n\x15IngestContentResponse\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x44\n\x11\x65xtracted_objects\x18\x02 \x03(\x0b\x32).core_linguistic.learning.v1.MemoryObject\":\n\x13TokenizeTextRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x15\n\rlanguage_code\x18\x02 \x01(\t\"<\n\x05Token\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x16\n\x0epart_of_speech\x18\x02 \x01(\t\x12\r\n\x05lemma\x18\x03 \x01(\t\"\x9d\x01\n\x14TokenizeTextResponse\x12\x32\n\x06tokens\x18\x01 \x03(\x0b\x32\".core_linguistic.learning.v1.Token\x12:\n\nerror_code\x18\x02 \x01(\x0e\x32&.core_linguistic.learning.v1.ErrorCode\x12\x15\n\rerror_message\x18\x03 \x01(\t\"(\n\x18GetSinoVietnameseRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"-\n\x19GetSinoVietnameseResponse\x12\x10\n\x08phonetic\x18\x01 \x01(\t\"~\n\x18UpdateMemoryStateRequest\x12\x11\n\tobject_id\x18\x01 \x01(\t\x12\x16\n\x0erecall_quality\x18\x02 \x01(\x05\x12\x37\n\x08modality\x18\x03 \x01(\x0e\x32%.core_linguistic.learning.v1.Modality\"4\n\x12GetDueItemsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\"O\n\x13GetDueItemsResponse\x12\x38\n\x05items\x18\x01 \x03(\x0b\x32).core_linguistic.learning.v1.MemoryObject*t\n\x08Modality\x12\x18\n\x14MODALITY_UNSPECIFIED\x10\x00\x12\x11\n\rMODALITY_READ\x10\x01\x12\x13\n\x0fMODALITY_LISTEN\x10\x02\x12\x12\n\x0eMODALITY_WRITE\x10\x03\x12\x12\n\x0eMODALITY_SPEAK\x10\x04*\x98\x01\n\tErrorCode\x12\x1a\n\x16\x45RROR_CODE_UNSPECIFIED\x10\x00\x12%\n!ERROR_CODE_LANGUAGE_NOT_SUPPORTED\x10\x01\x12\"\n\x1e\x45RROR_CODE_TOKENIZATION_FAILED\x10\x02\x12$\n ERROR_CODE_INTERNAL_KERNEL_ERROR\x10\x03\x32\x8d\x02\n\x11LinguisticService\x12s\n\x0cTokenizeText\x12\x30.core_linguistic.learning.v1.TokenizeTextRequest\x1a\x31.core_linguistic.learning.v1.TokenizeTextResponse\x12\x82\x01\n\x11GetSinoVietnamese\x12\x35.core_linguistic.learning.v1.GetSinoVietnameseRequest\x1a\x36.core_linguistic.learning.v1.GetSinoVietnameseResponse2\xf8\x01\n\rMemoryService\x12u\n\x11UpdateMemoryState\x12\x35.core_linguistic.learning.v1.UpdateMemoryStateRequest\x1a).core_linguistic.learning.v1.MemoryObject\x12p\n\x0bGetDueItems\x12/.core_linguistic.learning.v1.GetDueItemsRequest\x1a\x30.core_linguistic.learning.v1.GetDueItemsResponse2\x86\x01\n\x0c\x41gentService\x12v\n\rIngestContent\x12\x31.core_linguistic.learning.v1.IngestContentRequest\x1a\x32.core_linguistic.learning.v1.IngestContentResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'learning_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_MODALITY']._serialized_start=855
-  _globals['_MODALITY']._serialized_end=971
+  _globals['_MEMORYOBJECT_MODALITYWEIGHTSENTRY']._loaded_options = None
+  _globals['_MEMORYOBJECT_MODALITYWEIGHTSENTRY']._serialized_options = b'8\001'
+  _globals['_MODALITY']._serialized_start=1359
+  _globals['_MODALITY']._serialized_end=1475
+  _globals['_ERRORCODE']._serialized_start=1478
+  _globals['_ERRORCODE']._serialized_end=1630
   _globals['_MEMORYOBJECT']._serialized_start=89
-  _globals['_MEMORYOBJECT']._serialized_end=325
-  _globals['_TOKENIZEREQUEST']._serialized_start=327
-  _globals['_TOKENIZEREQUEST']._serialized_end=381
-  _globals['_TOKEN']._serialized_start=383
-  _globals['_TOKEN']._serialized_end=443
-  _globals['_TOKENIZERESPONSE']._serialized_start=445
-  _globals['_TOKENIZERESPONSE']._serialized_end=515
-  _globals['_GETHANVIETREQUEST']._serialized_start=517
-  _globals['_GETHANVIETREQUEST']._serialized_end=550
-  _globals['_GETHANVIETRESPONSE']._serialized_start=552
-  _globals['_GETHANVIETRESPONSE']._serialized_end=590
-  _globals['_UPDATEMEMORYSTATEREQUEST']._serialized_start=592
-  _globals['_UPDATEMEMORYSTATEREQUEST']._serialized_end=718
-  _globals['_GETDUEITEMSREQUEST']._serialized_start=720
-  _globals['_GETDUEITEMSREQUEST']._serialized_end=772
-  _globals['_GETDUEITEMSRESPONSE']._serialized_start=774
-  _globals['_GETDUEITEMSRESPONSE']._serialized_end=853
-  _globals['_LINGUISTICSERVICE']._serialized_start=974
-  _globals['_LINGUISTICSERVICE']._serialized_end=1209
-  _globals['_MEMORYSERVICE']._serialized_start=1212
-  _globals['_MEMORYSERVICE']._serialized_end=1460
+  _globals['_MEMORYOBJECT']._serialized_end=499
+  _globals['_MEMORYOBJECT_MODALITYWEIGHTSENTRY']._serialized_start=445
+  _globals['_MEMORYOBJECT_MODALITYWEIGHTSENTRY']._serialized_end=499
+  _globals['_INGESTCONTENTREQUEST']._serialized_start=501
+  _globals['_INGESTCONTENTREQUEST']._serialized_end=608
+  _globals['_INGESTCONTENTRESPONSE']._serialized_start=610
+  _globals['_INGESTCONTENTRESPONSE']._serialized_end=723
+  _globals['_TOKENIZETEXTREQUEST']._serialized_start=725
+  _globals['_TOKENIZETEXTREQUEST']._serialized_end=783
+  _globals['_TOKEN']._serialized_start=785
+  _globals['_TOKEN']._serialized_end=845
+  _globals['_TOKENIZETEXTRESPONSE']._serialized_start=848
+  _globals['_TOKENIZETEXTRESPONSE']._serialized_end=1005
+  _globals['_GETSINOVIETNAMESEREQUEST']._serialized_start=1007
+  _globals['_GETSINOVIETNAMESEREQUEST']._serialized_end=1047
+  _globals['_GETSINOVIETNAMESERESPONSE']._serialized_start=1049
+  _globals['_GETSINOVIETNAMESERESPONSE']._serialized_end=1094
+  _globals['_UPDATEMEMORYSTATEREQUEST']._serialized_start=1096
+  _globals['_UPDATEMEMORYSTATEREQUEST']._serialized_end=1222
+  _globals['_GETDUEITEMSREQUEST']._serialized_start=1224
+  _globals['_GETDUEITEMSREQUEST']._serialized_end=1276
+  _globals['_GETDUEITEMSRESPONSE']._serialized_start=1278
+  _globals['_GETDUEITEMSRESPONSE']._serialized_end=1357
+  _globals['_LINGUISTICSERVICE']._serialized_start=1633
+  _globals['_LINGUISTICSERVICE']._serialized_end=1902
+  _globals['_MEMORYSERVICE']._serialized_start=1905
+  _globals['_MEMORYSERVICE']._serialized_end=2153
+  _globals['_AGENTSERVICE']._serialized_start=2156
+  _globals['_AGENTSERVICE']._serialized_end=2290
 # @@protoc_insertion_point(module_scope)

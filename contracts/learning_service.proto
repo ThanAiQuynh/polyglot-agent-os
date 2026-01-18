@@ -4,25 +4,31 @@ package core_linguistic.learning.v1;
 
 import "google/protobuf/timestamp.proto";
 
-// Service xử lý ngôn ngữ học (Kernel)
+// Service handling linguistic analysis (Kernel)
 service LinguisticService {
-  // Tách từ và phân tích ngữ pháp
-  rpc Tokenize(TokenizeRequest) returns (TokenizeResponse);
+  // Analyzes text into tokens
+  rpc TokenizeText(TokenizeTextRequest) returns (TokenizeTextResponse);
   
-  // Tra cứu âm Hán-Việt (hỗ trợ cả từ đơn và từ ghép)
-  rpc GetHanViet(GetHanVietRequest) returns (GetHanVietResponse);
+  // Retrieves Sino-Vietnamese phonetics
+  rpc GetSinoVietnamese(GetSinoVietnameseRequest) returns (GetSinoVietnameseResponse);
 }
 
-// Service quản lý thuật toán ghi nhớ (Learning OS Kernel)
+// Service managing memory algorithms (Learning OS Kernel)
 service MemoryService {
-  // Cập nhật trạng thái ghi nhớ sau khi người dùng ôn tập
+  // Updates memory state after a user review
   rpc UpdateMemoryState(UpdateMemoryStateRequest) returns (MemoryObject);
   
-  // Lấy danh sách các từ vựng đến hạn ôn tập (Due items)
+  // Retrieves vocabulary items due for review
   rpc GetDueItems(GetDueItemsRequest) returns (GetDueItemsResponse);
 }
 
-// Định nghĩa các giác quan học tập
+// Service for AI Agents to extract knowledge
+service AgentService {
+  // Processes raw text into knowledge objects
+  rpc IngestContent(IngestContentRequest) returns (IngestContentResponse);
+}
+
+// Learning senses (Modality)
 enum Modality {
   MODALITY_UNSPECIFIED = 0;
   MODALITY_READ = 1;
@@ -35,14 +41,32 @@ message MemoryObject {
   string id = 1;
   string user_id = 2;
   string linguistic_unit = 3;
-  string han_viet = 4;
-  double stability = 5;      // S: Độ bền trí nhớ
-  double difficulty = 6;     // D: Độ khó của từ
-  Modality last_modality = 7;
-  google.protobuf.Timestamp last_review = 8;
+  string sino_vietnamese = 4;
+  
+  // SRS Parameters
+  double stability = 5;      // S: Memory stability
+  double difficulty = 6;     // D: Unit difficulty
+  double decay_curve = 7;    // Decay coefficient
+  
+  map<int32, double> modality_weights = 8; // Weights per Modality
+  
+  Modality last_modality = 9;
+  google.protobuf.Timestamp last_review = 10;
 }
 
-message TokenizeRequest {
+message IngestContentRequest {
+  string raw_content = 1;    // Raw content (news, manga, etc.)
+  string user_id = 2;
+  string target_language = 3; // "jp", "en", "zh"
+  string context_hint = 4;   // Contextual hint (e.g., "IT News")
+}
+
+message IngestContentResponse {
+  string session_id = 1;
+  repeated MemoryObject extracted_objects = 2;
+}
+
+message TokenizeTextRequest {
   string text = 1;
   string language_code = 2; // "jp", "en", "zh"
 }
@@ -50,25 +74,34 @@ message TokenizeRequest {
 message Token {
   string text = 1;
   string part_of_speech = 2;
-  string lemma = 3;         // Từ gốc (ví dụ: 食べ -> 食べる)
+  string lemma = 3;         // Base form (e.g., 食べ -> 食べる)
 }
 
-message TokenizeResponse {
+enum ErrorCode {
+  ERROR_CODE_UNSPECIFIED = 0;
+  ERROR_CODE_LANGUAGE_NOT_SUPPORTED = 1;
+  ERROR_CODE_TOKENIZATION_FAILED = 2;
+  ERROR_CODE_INTERNAL_KERNEL_ERROR = 3;
+}
+
+message TokenizeTextResponse {
   repeated Token tokens = 1;
+  ErrorCode error_code = 2;
+  string error_message = 3;
 }
 
-message GetHanVietRequest {
-  string text = 1;          // Hỗ trợ cả câu hoặc từ đơn
+message GetSinoVietnameseRequest {
+  string text = 1;          // Supports phrases or single words
 }
 
-message GetHanVietResponse {
-  string phonetic = 1;      // Ví dụ: "Kinh tế học"
+message GetSinoVietnameseResponse {
+  string phonetic = 1;      // e.g., "Kinh tế học"
 }
 
 message UpdateMemoryStateRequest {
   string object_id = 1;
-  int32 recall_quality = 2; // Đánh giá từ 0-5
-  Modality modality = 3;    // Ôn tập qua kỹ năng nào?
+  int32 recall_quality = 2; // Rating from 0-5
+  Modality modality = 3;    // Review modality
 }
 
 message GetDueItemsRequest {

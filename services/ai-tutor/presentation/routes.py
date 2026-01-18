@@ -3,11 +3,12 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 import grpc
-from infrastructure.grpc_clients import LinguisticClient, MemoryClient
+from infrastructure.grpc_clients import LinguisticClient, MemoryClient, AgentClient
 
 router = APIRouter()
 linguistic_client = LinguisticClient()
 memory_client = MemoryClient()
+agent_client = AgentClient()
 
 class TokenizeRequest(BaseModel):
     text: str
@@ -52,7 +53,7 @@ async def update_memory(object_id: str, recall_quality: int, modality: int):
             id=response.id,
             user_id=response.user_id,
             linguistic_unit=response.linguistic_unit,
-            han_viet=response.han_viet,
+            han_viet=response.sino_vietnamese,
             stability=response.stability,
             difficulty=response.difficulty,
             last_modality=response.last_modality,
@@ -70,7 +71,7 @@ async def get_due_items(user_id: str, limit: int = 10):
                 id=item.id,
                 user_id=item.user_id,
                 linguistic_unit=item.linguistic_unit,
-                han_viet=item.han_viet,
+                han_viet=item.sino_vietnamese,
                 stability=item.stability,
                 difficulty=item.difficulty,
                 last_modality=item.last_modality,
@@ -78,5 +79,16 @@ async def get_due_items(user_id: str, limit: int = 10):
             ) for item in response.items
         ]
         return items
+    except grpc.RpcError as e:
+        raise HTTPException(status_code=500, detail=f"gRPC error: {e.details()}")
+
+@router.post("/ingest")
+async def ingest_content(text: str, user_id: str, language: str = "jp"):
+    try:
+        response = await agent_client.ingest(text, user_id, language)
+        return {
+            "session_id": response.session_id,
+            "extracted_objects_count": len(response.extracted_objects)
+        }
     except grpc.RpcError as e:
         raise HTTPException(status_code=500, detail=f"gRPC error: {e.details()}")

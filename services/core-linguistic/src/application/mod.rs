@@ -1,3 +1,4 @@
+pub mod tokenizer;
 use crate::domain::MemoryObject;
 
 // Trait cho Persistence Layer (Infrastructure)

@@ -1,0 +1,42 @@
+﻿cargo :     Checking core-linguistic v0.1.0 (D:\worksplace\polyglot-agent-os\services\core-linguistic)
+At line:1 char:1
++ cargo check --lib 2>&1 | Out-File -Encoding utf8 build_errors.txt; Ge ...
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking co...ore-linguistic):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0599]: no variant or associated item named `ErrorCodeLanguageNotSupported` found for enum `ErrorCode` in the 
+current scope
+   --> src\presentation\mod.rs:32:40
+    |
+ 32 |                 error_code: ErrorCode::ErrorCodeLanguageNotSupported as i32,
+    |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ variant or associated item not found in 
+`ErrorCode`
+    |
+   ::: D:\worksplace\polyglot-agent-os\services\core-linguistic\target\debug\build\core-linguistic-837ff7ffce62433b\out
+/core_linguistic.learning.v1.rs:163:1
+    |
+163 | pub enum ErrorCode {
+    | ------------------ variant or associated item `ErrorCodeLanguageNotSupported` not found for this enum
+    |
+help: there is a variant with a similar name
+    |
+ 32 -                 error_code: ErrorCode::ErrorCodeLanguageNotSupported as i32,
+ 32 +                 error_code: ErrorCode::LanguageNotSupported as i32,
+    |
+
+error[E0599]: no variant or associated item named `ErrorCodeUnspecified` found for enum `ErrorCode` in the current 
+scope
+   --> src\presentation\mod.rs:41:36
+    |
+ 41 |             error_code: ErrorCode::ErrorCodeUnspecified as i32,
+    |                                    ^^^^^^^^^^^^^^^^^^^^ variant or associated item not found in `ErrorCode`
+    |
+   ::: D:\worksplace\polyglot-agent-os\services\core-linguistic\target\debug\build\core-linguistic-837ff7ffce62433b\out
+/core_linguistic.learning.v1.rs:163:1
+    |
+163 | pub enum ErrorCode {
+    | ------------------ variant or associated item `ErrorCodeUnspecified` not found for this enum
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `core-linguistic` (lib) due to 2 previous errors

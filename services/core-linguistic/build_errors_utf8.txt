@@ -1,0 +1,63 @@
+﻿cargo :     Checking core-linguistic v0.1.0 
+(D:\worksplace\polyglot-agent-os\services\core-linguistic)
+At line:1 char:1
++ cargo check 2>&1 | Out-File -Encoding utf8 build_errors_utf8.txt; Get ...
++ ~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (    Checking co...ore-linguist 
+   ic):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+error[E0432]: unresolved import `lindera_ipadic::load_dictionary`
+ --> src\application\tokenizer.rs:2:5
+  |
+2 | use lindera_ipadic::load_dictionary;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `load_dictionary` in the root
+
+warning: unused import: `Token`
+ --> src\presentation\mod.rs:4:97
+  |
+4 | use crate::learning::{TokenizeRequest, TokenizeResponse, 
+GetHanVietRequest, GetHanVietResponse, Token};
+  |                                                                         
+                        ^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by 
+default
+
+error[E0071]: expected struct, variant or union type, found 
+`serde_json::value::Value`
+  --> src\application\tokenizer.rs:12:22
+   |
+12 |         let config = TokenizerConfig {
+   |                      ^^^^^^^^^^^^^^^ not a struct
+
+error[E0599]: no method named `get_details` found for struct 
+`lindera::token::Token<'a>` in the current scope
+   --> src\application\tokenizer.rs:32:33
+    |
+ 32 |                 let details = 
+t.get_details().unwrap_or(&vec!["unknown"]);
+    |                                 ^^^^^^^^^^^
+    |
+help: there is a method `get_detail` with a similar name, but with 
+different arguments
+   --> C:\Users\ACER\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\li
+ndera-2.0.1\src\token.rs:171:5
+    |
+171 |     pub fn get_detail(&mut self, index: usize) -> Option<&str> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0609]: no field `text` on type `lindera::token::Token<'_>`
+  --> src\application\tokenizer.rs:34:29
+   |
+34 |                     text: t.text.to_string(),
+   |                             ^^^^ unknown field
+   |
+   = note: available fields are: `surface`, `byte_start`, `byte_end`, 
+`position`, `position_length` ... and 4 others
+
+Some errors have detailed explanations: E0071, E0432, E0599, E0609.
+For more information about an error, try `rustc --explain E0071`.
+warning: `core-linguistic` (lib) generated 1 warning
+error: could not compile `core-linguistic` (lib) due to 4 previous errors; 
+1 warning emitted

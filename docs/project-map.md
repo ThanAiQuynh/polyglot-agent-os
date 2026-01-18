@@ -31,6 +31,7 @@ polyglot-agent-os/
 │   ├── ai-tutor/               # AI Orchestrator (Python/FastAPI)
 │   │   ├── main.py             # Entry point (Bootstrap)
 │   │   ├── agents/             # Domain: Specific LLM Agents
+│   │   │   └── ingestion_agent.py
 │   │   ├── workflows/          # Application: Orchestration logic
 │   │   ├── infrastructure/     # Infrastructure: gRPC clients, Kafka
 │   │   │   └── grpc_clients.py
@@ -44,8 +45,10 @@ polyglot-agent-os/
 │           ├── lib.rs          # Module declarations
 │           ├── domain/         # Domain: Entities & SRS logic
 │           ├── application/    # Application: Use cases
+│           │   └── tokenizer.rs
 │           ├── infrastructure/ # Infrastructure: Postgres, Kafka
 │           └── presentation/   # Presentation: gRPC services
+│               └── mod.rs
 ├── project_flow.md             # Vision & Roadmap
 ├── scripts/                    # Utility scripts
 │   └── beads_0.47.1_windows_amd64/ # Local Beads (bd) binary & docs

@@ -26,7 +26,7 @@ if _version_not_supported:
 
 
 class LinguisticServiceStub(object):
-    """Service xử lý ngôn ngữ học (Kernel)
+    """Service handling linguistic analysis (Kernel)
     """
 
     def __init__(self, channel):
@@ -35,31 +35,31 @@ class LinguisticServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Tokenize = channel.unary_unary(
-                '/core_linguistic.learning.v1.LinguisticService/Tokenize',
-                request_serializer=learning__service__pb2.TokenizeRequest.SerializeToString,
-                response_deserializer=learning__service__pb2.TokenizeResponse.FromString,
+        self.TokenizeText = channel.unary_unary(
+                '/core_linguistic.learning.v1.LinguisticService/TokenizeText',
+                request_serializer=learning__service__pb2.TokenizeTextRequest.SerializeToString,
+                response_deserializer=learning__service__pb2.TokenizeTextResponse.FromString,
                 _registered_method=True)
-        self.GetHanViet = channel.unary_unary(
-                '/core_linguistic.learning.v1.LinguisticService/GetHanViet',
-                request_serializer=learning__service__pb2.GetHanVietRequest.SerializeToString,
-                response_deserializer=learning__service__pb2.GetHanVietResponse.FromString,
+        self.GetSinoVietnamese = channel.unary_unary(
+                '/core_linguistic.learning.v1.LinguisticService/GetSinoVietnamese',
+                request_serializer=learning__service__pb2.GetSinoVietnameseRequest.SerializeToString,
+                response_deserializer=learning__service__pb2.GetSinoVietnameseResponse.FromString,
                 _registered_method=True)
 
 
 class LinguisticServiceServicer(object):
-    """Service xử lý ngôn ngữ học (Kernel)
+    """Service handling linguistic analysis (Kernel)
     """
 
-    def Tokenize(self, request, context):
-        """Tách từ và phân tích ngữ pháp
+    def TokenizeText(self, request, context):
+        """Analyzes text into tokens
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetHanViet(self, request, context):
-        """Tra cứu âm Hán-Việt (hỗ trợ cả từ đơn và từ ghép)
+    def GetSinoVietnamese(self, request, context):
+        """Retrieves Sino-Vietnamese phonetics
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -68,15 +68,15 @@ class LinguisticServiceServicer(object):
 
 def add_LinguisticServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Tokenize': grpc.unary_unary_rpc_method_handler(
-                    servicer.Tokenize,
-                    request_deserializer=learning__service__pb2.TokenizeRequest.FromString,
-                    response_serializer=learning__service__pb2.TokenizeResponse.SerializeToString,
+            'TokenizeText': grpc.unary_unary_rpc_method_handler(
+                    servicer.TokenizeText,
+                    request_deserializer=learning__service__pb2.TokenizeTextRequest.FromString,
+                    response_serializer=learning__service__pb2.TokenizeTextResponse.SerializeToString,
             ),
-            'GetHanViet': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetHanViet,
-                    request_deserializer=learning__service__pb2.GetHanVietRequest.FromString,
-                    response_serializer=learning__service__pb2.GetHanVietResponse.SerializeToString,
+            'GetSinoVietnamese': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSinoVietnamese,
+                    request_deserializer=learning__service__pb2.GetSinoVietnameseRequest.FromString,
+                    response_serializer=learning__service__pb2.GetSinoVietnameseResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -87,11 +87,11 @@ def add_LinguisticServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class LinguisticService(object):
-    """Service xử lý ngôn ngữ học (Kernel)
+    """Service handling linguistic analysis (Kernel)
     """
 
     @staticmethod
-    def Tokenize(request,
+    def TokenizeText(request,
             target,
             options=(),
             channel_credentials=None,
@@ -104,9 +104,9 @@ class LinguisticService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/core_linguistic.learning.v1.LinguisticService/Tokenize',
-            learning__service__pb2.TokenizeRequest.SerializeToString,
-            learning__service__pb2.TokenizeResponse.FromString,
+            '/core_linguistic.learning.v1.LinguisticService/TokenizeText',
+            learning__service__pb2.TokenizeTextRequest.SerializeToString,
+            learning__service__pb2.TokenizeTextResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -118,7 +118,7 @@ class LinguisticService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetHanViet(request,
+    def GetSinoVietnamese(request,
             target,
             options=(),
             channel_credentials=None,
@@ -131,9 +131,9 @@ class LinguisticService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/core_linguistic.learning.v1.LinguisticService/GetHanViet',
-            learning__service__pb2.GetHanVietRequest.SerializeToString,
-            learning__service__pb2.GetHanVietResponse.FromString,
+            '/core_linguistic.learning.v1.LinguisticService/GetSinoVietnamese',
+            learning__service__pb2.GetSinoVietnameseRequest.SerializeToString,
+            learning__service__pb2.GetSinoVietnameseResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -146,7 +146,7 @@ class LinguisticService(object):
 
 
 class MemoryServiceStub(object):
-    """Service quản lý thuật toán ghi nhớ (Learning OS Kernel)
+    """Service managing memory algorithms (Learning OS Kernel)
     """
 
     def __init__(self, channel):
@@ -168,18 +168,18 @@ class MemoryServiceStub(object):
 
 
 class MemoryServiceServicer(object):
-    """Service quản lý thuật toán ghi nhớ (Learning OS Kernel)
+    """Service managing memory algorithms (Learning OS Kernel)
     """
 
     def UpdateMemoryState(self, request, context):
-        """Cập nhật trạng thái ghi nhớ sau khi người dùng ôn tập
+        """Updates memory state after a user review
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetDueItems(self, request, context):
-        """Lấy danh sách các từ vựng đến hạn ôn tập (Due items)
+        """Retrieves vocabulary items due for review
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -207,7 +207,7 @@ def add_MemoryServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class MemoryService(object):
-    """Service quản lý thuật toán ghi nhớ (Learning OS Kernel)
+    """Service managing memory algorithms (Learning OS Kernel)
     """
 
     @staticmethod
@@ -254,6 +254,82 @@ class MemoryService(object):
             '/core_linguistic.learning.v1.MemoryService/GetDueItems',
             learning__service__pb2.GetDueItemsRequest.SerializeToString,
             learning__service__pb2.GetDueItemsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+
+class AgentServiceStub(object):
+    """Service for AI Agents to extract knowledge
+    """
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.IngestContent = channel.unary_unary(
+                '/core_linguistic.learning.v1.AgentService/IngestContent',
+                request_serializer=learning__service__pb2.IngestContentRequest.SerializeToString,
+                response_deserializer=learning__service__pb2.IngestContentResponse.FromString,
+                _registered_method=True)
+
+
+class AgentServiceServicer(object):
+    """Service for AI Agents to extract knowledge
+    """
+
+    def IngestContent(self, request, context):
+        """Processes raw text into knowledge objects
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_AgentServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'IngestContent': grpc.unary_unary_rpc_method_handler(
+                    servicer.IngestContent,
+                    request_deserializer=learning__service__pb2.IngestContentRequest.FromString,
+                    response_serializer=learning__service__pb2.IngestContentResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'core_linguistic.learning.v1.AgentService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('core_linguistic.learning.v1.AgentService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class AgentService(object):
+    """Service for AI Agents to extract knowledge
+    """
+
+    @staticmethod
+    def IngestContent(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/core_linguistic.learning.v1.AgentService/IngestContent',
+            learning__service__pb2.IngestContentRequest.SerializeToString,
+            learning__service__pb2.IngestContentResponse.FromString,
             options,
             channel_credentials,
             insecure,

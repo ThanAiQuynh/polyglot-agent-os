@@ -8,7 +8,7 @@ description: Initialize the agent session with project context and task status
    - Read `docs/rules.md`
    - Read `docs/project-map.md`
 2. Check for the current task status using Beads.
-   - Run `bd ready`
+   - Run `.\scripts\beads_0.47.1_windows_amd64\bd.exe ready`
 3. List any open high-priority tasks.
-   - Run `bd list --status in_progress`
+   - Run `.\scripts\beads_0.47.1_windows_amd64\bd.exe list --status in_progress`
 4. Report the session status to the user and ask for the next task if none are in progress.

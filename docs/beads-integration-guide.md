@@ -32,11 +32,11 @@ Choose the method that fits your environment:
 3. **Standard Workflow**:
    ```bash
    # Optional: Install git hooks for automated syncing
-   bd hooks install
+   .\scripts\beads_0.47.1_windows_amd64\bd.exe hooks install
    ```
 4. **Stealth Mode**: (If you want to use Beads locally without committing `.beads/` files to the repository)
    ```bash
-   bd init --stealth
+   .\scripts\beads_0.47.1_windows_amd64\bd.exe init --stealth
    ```
 
 ---
@@ -49,12 +49,12 @@ AI agents in this project MUST use Beads for task tracking to maintain context a
 
 | Command | Purpose |
 | :--- | :--- |
-| `bd ready` | Lists tasks that are ready to be worked on (dependencies met). |
-| `bd create "Title" -p <0-4>` | Creates a new task with a priority (0=highest, 4=lowest). |
-| `bd update <id> --status <status>` | Updates task status (e.g., `in_progress`, `closed`). |
-| `bd show <id>` | Shows detailed information about a task. |
-| `bd dep add <child> <parent>` | Creates a dependency link between tasks. |
-| `bd sync` | **CRITICAL**: Flushes changes, commits to git, and pushes/pulls. |
+| `.\scripts\beads_0.47.1_windows_amd64\bd.exe ready` | Lists tasks that are ready to be worked on (dependencies met). |
+| `.\scripts\beads_0.47.1_windows_amd64\bd.exe create "Title" -p <0-4>` | Creates a new task with a priority (0=highest, 4=lowest). |
+| `.\scripts\beads_0.47.1_windows_amd64\bd.exe update <id> --status <status>` | Updates task status (e.g., `in_progress`, `closed`). |
+| `.\scripts\beads_0.47.1_windows_amd64\bd.exe show <id>` | Shows detailed information about a task. |
+| `.\scripts\beads_0.47.1_windows_amd64\bd.exe dep add <child> <parent>` | Creates a dependency link between tasks. |
+| `.\scripts\beads_0.47.1_windows_amd64\bd.exe sync` | **CRITICAL**: Flushes changes, commits to git, and pushes/pulls. |
 
 ### Important Rules for Agents
 - **Don't use `bd edit`**: It opens an interactive terminal editor. Use `bd update` with flags instead.
@@ -65,9 +65,9 @@ AI agents in this project MUST use Beads for task tracking to maintain context a
 
 ## 🔗 Hierarchy Example
 
-- `bd-a3f8` (Epic)
-  - `bd-a3f8.1` (Task)
-    - `bd-a3f8.1.1` (Sub-task)
+- `polyglot-agent-os-a3f8` (Epic)
+  - `polyglot-agent-os-a3f8.1` (Task)
+    - `polyglot-agent-os-a3f8.1.1` (Sub-task)
 
 ---
 

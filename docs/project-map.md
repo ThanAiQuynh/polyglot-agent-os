@@ -12,6 +12,7 @@ polyglot-agent-os/
 │   │   ├── python-standards.md  # AI Tutor (Python) rules
 │   │   └── rust-standards.md    # Core Linguistic (Rust) rules
 │   └── workflows/              # Standard Operating Procedures (SOPs)
+├── .beads/                     # Beads issue tracker database
 ├── .gitignore                  # Git exclusion rules
 ├── AGENTS.md                   # Instructions for AI Agents
 ├── contracts/                  # gRPC & Protobuf definition
